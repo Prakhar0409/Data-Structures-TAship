@@ -1,0 +1,659 @@
+%% ================================================================================
+%% This LaTeX file was created by AbiWord.                                         
+%% AbiWord is a free, Open Source word processor.                                  
+%% More information about AbiWord is available at http://www.abisource.com/        
+%% ================================================================================
+
+\documentclass[a4paper,portrait,12pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{calc}
+\usepackage{setspace}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[normalem]{ulem}
+%% Please revise the following command, if your babel
+%% package does not support en-IN
+\usepackage[en]{babel}
+\usepackage{color}
+\usepackage{hyperref}
+ 
+\begin{document}
+
+
+\begin{flushleft}
+COL106: Data Structures and Algorithms
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+Assignment 3
+\end{flushleft}
+
+
+\begin{flushleft}
+Instructor: Prof. Saroj Kaushik
+\end{flushleft}
+
+
+
+
+
+1
+
+
+
+
+
+\begin{flushleft}
+Deadline: TBD
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+Statement
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+Having worked on a few projects for small tech companies, you plan to try out your luck in the financial
+\end{flushleft}
+
+
+\begin{flushleft}
+markets. You think that data driven computing is the key to succeed in such financial markets. Inspired
+\end{flushleft}
+
+
+\begin{flushleft}
+from the HFT ideology, you are ambitious about building some computing facility of your own that
+\end{flushleft}
+
+
+\begin{flushleft}
+will help you earn profits in all market conditions.
+\end{flushleft}
+
+
+\begin{flushleft}
+But before you can process or analyze any live data, you need a way to quickly get data from the
+\end{flushleft}
+
+
+\begin{flushleft}
+stock exchange to your compute servers. Ideally you would want your compute servers to be located
+\end{flushleft}
+
+
+\begin{flushleft}
+right at the stock exchange so that you can get instant access to the data and make trading decisions
+\end{flushleft}
+
+
+\begin{flushleft}
+using your algorithms. This, however is not possible in a real world scenario. Luckily you have a
+\end{flushleft}
+
+
+\begin{flushleft}
+friend Merlin, who stays very close to the exchange. Merlin has allowed you to run a small setup at
+\end{flushleft}
+
+
+\begin{flushleft}
+his residence which won't really be sufficient for your for all the compute you need. So you plan to use
+\end{flushleft}
+
+
+\begin{flushleft}
+this setup to get data to you as fast as possible.
+\end{flushleft}
+
+
+\begin{flushleft}
+In this assignment, we will together build a Market Data Publisher (MDP). This is a component
+\end{flushleft}
+
+
+\begin{flushleft}
+that receives price data for various symbols and broadcasts them (prints on console for our simple
+\end{flushleft}
+
+
+\begin{flushleft}
+system) as per certain rules. A naive publisher would simply publish any data that it gets instantly,
+\end{flushleft}
+
+
+\begin{flushleft}
+however assume that we are operating in a limited bandwidth environment, and do not want to send
+\end{flushleft}
+
+
+\begin{flushleft}
+out price changes unless they exceed some threshold ($\theta$).
+\end{flushleft}
+
+
+\begin{flushleft}
+Rule: Do not send out any price unless
+\end{flushleft}
+
+
+\begin{flushleft}
+|newP rice $-$ lastP ublishedP rice| $>$ threshold
+\end{flushleft}
+
+
+\begin{flushleft}
+(We will skip some other rules that a MDP might need for brevity of the assignment)
+\end{flushleft}
+
+
+\begin{flushleft}
+You are required to implement an MDP using an AVL Tree. The stocks will be described as a
+\end{flushleft}
+
+
+\begin{flushleft}
+pair (company-id, stock-price). Since the stock exchange exists even before you created your MDP,
+\end{flushleft}
+
+
+\begin{flushleft}
+you first have to bulk load the existing stocks into your MDP. By bulk loading, we mean inserting
+\end{flushleft}
+
+
+\begin{flushleft}
+into the AVL tree in O(n) time, instead of the usual O(nlog(n)) (Hint: Day-Stout-Warren Algorithm).
+\end{flushleft}
+
+
+\begin{flushleft}
+This creates the need of pre-sorting the stock values on their company-id. Thus, your assignment gets
+\end{flushleft}
+
+
+\begin{flushleft}
+divided into 2 subparts as follows:
+\end{flushleft}
+
+
+\begin{flushleft}
+Goal 1: Given a input file containing various symbols (stock symbols) and their corresponding
+\end{flushleft}
+
+
+\begin{flushleft}
+prices at the end of some trading session (at some point in time) in COL106 ST OCK EXCHAN GE,
+\end{flushleft}
+
+
+\begin{flushleft}
+you are required to output them in sorted order of the stock symbols.
+\end{flushleft}
+
+
+\begin{flushleft}
+Implement external merge sort algorithm and output the share symbols along with their prices in
+\end{flushleft}
+
+
+\begin{flushleft}
+sorted order of their stock symbol in a single file. The output format is required to be same as the
+\end{flushleft}
+
+
+\begin{flushleft}
+input format. (Sample input file format is given below). You are allowed to create temporary files in
+\end{flushleft}
+
+
+\begin{flushleft}
+the implementation of your program. If two stocks have the same price, sort them in the order of their
+\end{flushleft}
+
+
+\begin{flushleft}
+stock price.
+\end{flushleft}
+
+
+\begin{flushleft}
+Sample input file:
+\end{flushleft}
+
+
+21 32
+
+
+65 19
+
+
+19 10001
+
+
+
+
+
+\begin{flushleft}
+You are fond of numbers and further believe that only stocks with symbols below some number
+\end{flushleft}
+
+
+\begin{flushleft}
+(k) are lucky for you and offer the best possibility of making profits and so you are only interested
+\end{flushleft}
+
+
+1
+
+
+
+
+
+\begin{flushleft}
+\newpage
+-- Assignment 3
+\end{flushleft}
+
+
+
+
+
+2
+
+
+
+
+
+\begin{flushleft}
+in trading only those securities. So given this parameter k, you are required to first bulk load all
+\end{flushleft}
+
+
+\begin{flushleft}
+the (company-id, stock-price), such that company $-$ id $<$ k into an AVL tree and then support the
+\end{flushleft}
+
+
+\begin{flushleft}
+operations given below.
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+Goal 2:
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Bulk load the key value pairs into an AVL tree
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Support the following operations:
+\end{flushleft}
+
+
+\begin{flushleft}
+-- register-company $<$company-id$>$ $<$initial-price$>$: Insert a new node in the AVL Tree
+\end{flushleft}
+
+
+\begin{flushleft}
+with the given company-id and price
+\end{flushleft}
+
+
+\begin{flushleft}
+-- deregister-company $<$company-id$>$: Remove all data of the company with the given
+\end{flushleft}
+
+
+\begin{flushleft}
+company-id
+\end{flushleft}
+
+
+\begin{flushleft}
+-- update-price $<$company-id$>$ $<$new-price$>$: You must update the price of the given companyid, if the above given rule is satisfied. Also in case the rule is satisfied, you must broadcast
+\end{flushleft}
+
+
+\begin{flushleft}
+(print) the previous price
+\end{flushleft}
+
+
+\begin{flushleft}
+-- stock-split $<$company-id$>$ $<$x:y$>$: Readjust the price of stock corresponding to companyid given that the stocks are split in the ratio x $-$ f or $-$ y
+\end{flushleft}
+
+
+
+
+
+2
+
+
+
+
+
+\begin{flushleft}
+Input Format
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ All IO operations are to be done using standard input/output.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Your program will be given five command line arguments: the input file name, the output file
+\end{flushleft}
+
+
+\begin{flushleft}
+name and the run size (the number of stock value pairs that can be read into memory in a go),
+\end{flushleft}
+
+
+\begin{flushleft}
+parameter k, parameter $\theta$, n.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ The first line of the input contains a single integer N - the no. of subsequent operations to be
+\end{flushleft}
+
+
+\begin{flushleft}
+performed on the AVL Tree
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Next N lines consist of 1 operations each in the following format:
+\end{flushleft}
+
+
+\begin{flushleft}
+$<$operation-code$>$ $<$params$>$
+\end{flushleft}
+
+
+\begin{flushleft}
+Code
+\end{flushleft}
+
+
+1
+
+
+2
+
+
+3
+
+
+4
+
+
+5
+
+
+
+
+
+3
+
+
+
+
+
+\begin{flushleft}
+Operation
+\end{flushleft}
+
+
+\begin{flushleft}
+register-company
+\end{flushleft}
+
+
+\begin{flushleft}
+deregister-company
+\end{flushleft}
+
+
+\begin{flushleft}
+update-price
+\end{flushleft}
+
+
+\begin{flushleft}
+stock-split
+\end{flushleft}
+
+
+\begin{flushleft}
+reverse-stock-split
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+Output Format
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Each line in output will have exactly 2 space separated integers: !`company-id?` !`stock-price?`
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ There is no output for Operation 2.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Operation 1 outputs the initial price of the stock.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ Remaining operators may or may not publish the new price of the stock based on the condition
+\end{flushleft}
+
+
+\begin{flushleft}
+|newP rice $-$ lastP ublishedP rice| $>$ threshold.
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+\newpage
+-- Assignment 3
+\end{flushleft}
+
+
+
+
+
+4
+
+
+
+
+
+3
+
+
+
+
+
+\begin{flushleft}
+Limits
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ //FIXME
+\end{flushleft}
+
+
+
+
+
+5
+
+
+
+
+
+\begin{flushleft}
+Sample IO
+\end{flushleft}
+
+
+
+
+
+5.1
+
+
+
+
+
+\begin{flushleft}
+Input
+\end{flushleft}
+
+
+
+
+
+\begin{flushleft}
+//FIXME
+\end{flushleft}
+
+
+
+
+
+6
+
+
+
+
+
+\begin{flushleft}
+Submission Instructions
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ You are required strictly follow the instructions given below.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ You must submit a single program file which must be named with your KerberosID.cpp in small
+\end{flushleft}
+
+
+\begin{flushleft}
+case. For example, if your kerberos id is cs1150999 then the file name should be cs1150999.cpp.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ You will be penalized if your submission does not conform to this requirement.
+\end{flushleft}
+
+
+
+
+
+7
+
+
+
+
+
+\begin{flushleft}
+Other Instructions
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ The assignment is to be done individually.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ All submissions must use C/C++ for the programming assignment.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ You are not allowed to used any standard implementations/libraries (except for IO) in any part
+\end{flushleft}
+
+
+\begin{flushleft}
+of the program.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ You are not allowed to discuss or take help from anybody outside the class. You may only discuss
+\end{flushleft}
+
+
+\begin{flushleft}
+but are not allowed to share code with anyone inside the class.
+\end{flushleft}
+
+
+\begin{flushleft}
+$\bullet$ We will run plagiarism detection on your submissions. People found guilty will be penalised as
+\end{flushleft}
+
+
+\begin{flushleft}
+per the instructions mentioned in the beginning of the course
+\end{flushleft}
+
+
+
+
+
+\newpage
+
+
+
+\end{document}
